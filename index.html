@@ -1747,22 +1747,46 @@
       '<p class="modal-prompt-preview">' + shortPrompt + '</p>' +
       '</div></div>';
 
-    fetch("https://api.poe.com/v1/responses", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer " + token
-      },
-      body: JSON.stringify({ model: "gpt-image-2", prompt: prompt })
+   fetch("https://api.poe.com/v1/responses", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
+        },
+        body: JSON.stringify({
+            model: "gpt-image-2",
+            input: prompt
+        })
     })
     .then(function(res) {
-      if (!res.ok) {
-        return res.text().then(function(t) { throw new Error("HTTP " + res.status + ": " + t.substring(0, 200)); });
-      }
-      return res.json();
+        if (!res.ok) {
+            return res.text().then(function(t) {
+                throw new Error("HTTP " + res.status + ": " + t);
+            });
+        }
+    
+        return res.json();
     })
     .then(function(data) {
-      modalCont.innerHTML = "";
+    
+        console.log("Resposta da API:", data);
+    
+        modalCont.innerHTML = "";
+    
+        alert(JSON.stringify(data, null, 2));
+    
+    })
+    .catch(function(err) {
+    
+        modalCont.innerHTML = "";
+    
+        showModal(
+            "Erro ao gerar imagem",
+            err.message,
+            function() {}
+        );
+    
+    });
 
       // Normalise response — handle OpenAI-style {data:[{url,b64_json}]} and flat {url,b64_json}
       var item = (data.data && data.data[0]) ? data.data[0] : data;
