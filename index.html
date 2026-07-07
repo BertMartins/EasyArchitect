@@ -1747,7 +1747,7 @@
       '<p class="modal-prompt-preview">' + shortPrompt + '</p>' +
       '</div></div>';
 
-   fetch("https://api.poe.com/v1/responses", {
+    fetch("https://api.poe.com/v1/responses", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -1764,29 +1764,11 @@
                 throw new Error("HTTP " + res.status + ": " + t);
             });
         }
-    
+
         return res.json();
     })
     .then(function(data) {
-    
-        console.log("Resposta da API:", data);
-    
-        modalCont.innerHTML = "";
-    
-        alert(JSON.stringify(data, null, 2));
-    
-    })
-    .catch(function(err) {
-    
-        modalCont.innerHTML = "";
-    
-        showModal(
-            "Erro ao gerar imagem",
-            err.message,
-            function() {}
-        );
-    
-    });
+      console.log("Resposta da API:", data);
 
       // Normalise response — handle OpenAI-style {data:[{url,b64_json}]} and flat {url,b64_json}
       var item = (data.data && data.data[0]) ? data.data[0] : data;
@@ -1858,3 +1840,4 @@
     </script>
 </body>
 </html>
+
