@@ -879,7 +879,7 @@
   var S = {
     step: 0,
     terrain: {width:10, depth:20, type:"gramado"},
-    setbacks: {front:3, back:5, left:1.5, right:1.5},
+    setbacks: {front:3, back:5, left:1.5, right:1.5, lateralMode:"ambos"},
     floors: 1,
     rooms: {},          // rooms[floorIdx] = [{name,w,d,x,y,color}, ...]
     viewFloor: 0,
@@ -1676,7 +1676,7 @@
     if (rstBtn) rstBtn.addEventListener("click", function(){
       showModal("Novo Projeto","Tem certeza? Todos os dados serão perdidos.", function(){
         S.step=0; S.terrain={width:10,depth:20,type:"gramado"};
-        S.setbacks={front:3,back:5,left:1.5,right:1.5};
+        S.setbacks={front:3,back:5,left:1.5,right:1.5,lateralMode:"ambos"};
         S.floors=1; S.rooms={}; S.viewFloor=0; S.sel=-1;
         fullRender();
       }, function(){});
@@ -1840,4 +1840,3 @@
     </script>
 </body>
 </html>
-
